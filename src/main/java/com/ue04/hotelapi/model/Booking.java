@@ -1,7 +1,6 @@
 package com.ue04.hotelapi.model;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table
@@ -11,10 +10,10 @@ public class Booking {
     private long bookingNo;
 
     @Column
-    private Date checkInDate;
+    private String checkindate;
 
     @Column
-    private Date checkOutDate;
+    private String checkoutdate;
 
     @Column
     private String roomNo;
@@ -26,20 +25,20 @@ public class Booking {
         return bookingNo;
     }
 
-    public Date getCheckInDate() {
-        return checkInDate;
+    public String getCheckindate() {
+        return checkindate;
     }
 
-    public void setCheckInDate(Date checkInDate) {
-        this.checkInDate = checkInDate;
+    public void setCheckindate(String checkInDate) {
+        this.checkindate = checkInDate;
     }
 
-    public Date getCheckOutDate() {
-        return checkOutDate;
+    public String getCheckoutdate() {
+        return checkoutdate;
     }
 
-    public void setCheckOutDate(Date checkOutDate) {
-        this.checkOutDate = checkOutDate;
+    public void setCheckoutdate(String checkOutDate) {
+        this.checkoutdate = checkOutDate;
     }
 
     public String getRoomNo() {

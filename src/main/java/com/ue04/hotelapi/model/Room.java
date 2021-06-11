@@ -25,10 +25,10 @@ public class Room {
     private int size;
 
     @Column
-    private int noOfSingleBeds;
+    private int noofsinglebeds;
 
     @Column
-    private int noOfDoubleBeds;
+    private int noofdoublebeds;
 
     @Column
     private boolean balcony;
@@ -77,20 +77,20 @@ public class Room {
         this.size = size;
     }
 
-    public int getNoOfSingleBeds() {
-        return noOfSingleBeds;
+    public int getNoofsinglebeds() {
+        return noofsinglebeds;
     }
 
-    public void setNoOfSingleBeds(int noOfSingleBeds) {
-        this.noOfSingleBeds = noOfSingleBeds;
+    public void setNoofsinglebeds(int noofsinglebeds) {
+        this.noofsinglebeds = noofsinglebeds;
     }
 
-    public int getNoOfDoubleBeds() {
-        return noOfDoubleBeds;
+    public int getNoofdoublebeds() {
+        return noofdoublebeds;
     }
 
-    public void setNoOfDoubleBeds(int noOfDoubleBeds) {
-        this.noOfDoubleBeds = noOfDoubleBeds;
+    public void setNoofdoublebeds(int noofdoublebeds) {
+        this.noofdoublebeds = noofdoublebeds;
     }
 
     public boolean isBalcony() {

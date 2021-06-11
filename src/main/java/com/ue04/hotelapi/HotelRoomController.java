@@ -2,12 +2,12 @@ package com.ue04.hotelapi;
 
 import com.ue04.hotelapi.model.Booking;
 import com.ue04.hotelapi.model.Room;
+import com.ue04.hotelapi.model.SearchModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.util.Collection;
 
-@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api")
 public class HotelRoomController {
@@ -18,26 +18,39 @@ public class HotelRoomController {
     @Autowired
     private BookingRepository bookingRepository;
 
-    @GetMapping("/freeRooms")
-    public Room getFreeRooms(
-            @PathVariable String from,
-            @PathVariable String to,
-            @PathVariable String size,
-            @PathVariable String price,
-            @PathVariable String persons,
-            @PathVariable String singeBed,
-            @PathVariable String doubleBed,
-            @PathVariable String balcony
-    ) {
-        System.out.println(from + to + size);
-        return roomRepository.findFreeRooms(1).stream().findFirst().get();
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/freeRooms")
+    public Collection<Room> getFreeRooms(@RequestBody SearchModel searchModel) {
+        Collection<Room> rooms = roomRepository.findFreeRooms(
+                searchModel.getSize(),
+                searchModel.getPrice(),
+                searchModel.getPersons(),
+                searchModel.getSingleBed(),
+                searchModel.getDoubleBed(),
+                searchModel.isBalcony()
+        );
+
+//        Collection<Booking> bookings = bookingRepository.findAll();
+//        int year = Integer.parseInt(searchModel.getFrom().split(3));
+//        int month = Integer.parseInt(searchModel.getFrom());
+//        bookings = bookings.stream().filter(b -> searchModel.getFrom() < b.getCheckindate() )
+        return rooms;
+
+//        return rooms.stream().filter(r -> isNotBooked(r.getNr(), bookings)).collect(Collectors.toList());
+
     }
 
+    private boolean isNotBooked(String nr, Collection<Booking> bookings) {
+        return !bookings.stream().anyMatch(b -> b.getRoomNo() == nr);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/allRooms")
     public Iterable<Room> getAllRooms() {
         return roomRepository.findAll();
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/addRoom")
     public Room addRoom(@RequestParam String roomNo,
                         @RequestParam String type,
@@ -53,8 +66,8 @@ public class HotelRoomController {
         r.setPrice(price);
         r.setCapacity(capacity);
         r.setSize(size);
-        r.setNoOfSingleBeds(noOfSingleBeds);
-        r.setNoOfDoubleBeds(noOfDoubleBeds);
+        r.setNoofsinglebeds(noOfSingleBeds);
+        r.setNoofdoublebeds(noOfDoubleBeds);
         r.setBalcony(balcony);
 
         roomRepository.save(r);
@@ -62,12 +75,12 @@ public class HotelRoomController {
     }
 
     @PostMapping("/addBooking")
-    public Booking addBooking(@RequestParam Date checkInDate,
-                              @RequestParam Date checkOutDate,
+    public Booking addBooking(@RequestParam String checkInDate,
+                              @RequestParam String checkOutDate,
                               @RequestParam String roomNo) {
         Booking b = new Booking();
-        b.setCheckInDate(checkInDate);
-        b.setCheckOutDate(checkOutDate);
+        b.setCheckindate(checkInDate);
+        b.setCheckoutdate(checkOutDate);
         b.setRoomNo(roomNo);
 
         bookingRepository.save(b);
