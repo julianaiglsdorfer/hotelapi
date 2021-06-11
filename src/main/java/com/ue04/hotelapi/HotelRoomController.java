@@ -18,6 +18,7 @@ public class HotelRoomController {
     @Autowired
     private BookingRepository bookingRepository;
 
+    //POST weil = keine Daten in der URL + wir können einen body im Request mitgeben
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/freeRooms")
     public Collection<Room> getFreeRooms(@RequestBody SearchModel searchModel) {
@@ -86,6 +87,4 @@ public class HotelRoomController {
         bookingRepository.save(b);
         return b;
     }
-
-
 }
