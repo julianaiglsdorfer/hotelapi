@@ -12,7 +12,7 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
     //Select * erlaubt Abfrage aller Daten dabei müssen in der unteren Section nicht alle erwähnt werden
     //für Abfrage eines oder einer spezifischen Anzahl muss genau die Anzahl unten angegeben sein
     @Query(value = "select * FROM Room r " +
-            "WHERE r.size = :size " +
+            "WHERE r.size >= :size " +
             "AND r.capacity >= :persons " +
             "AND r.price <= :price " +
             "AND r.noofsinglebeds >= :singleBed " +

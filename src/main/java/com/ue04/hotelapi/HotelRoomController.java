@@ -52,6 +52,12 @@ public class HotelRoomController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/allBookings")
+    public Iterable<Booking> getAllBookings(){
+    	return bookingRepository.findAll();
+    }
+    
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/addRoom")
     public Room addRoom(@RequestParam String roomNo,
                         @RequestParam String type,
