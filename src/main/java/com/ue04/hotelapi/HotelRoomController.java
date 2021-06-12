@@ -82,12 +82,12 @@ public class HotelRoomController {
     }
 
     @PostMapping("/addBooking")
-    public Booking addBooking(@RequestParam String checkInDate,
-                              @RequestParam String checkOutDate,
+    public Booking addBooking(@RequestParam String checkindate,
+                              @RequestParam String checkoutdate,
                               @RequestParam String roomNo) {
         Booking b = new Booking();
-        b.setCheckindate(checkInDate);
-        b.setCheckoutdate(checkOutDate);
+        b.setCheckindate(checkindate);
+        b.setCheckoutdate(checkoutdate);
         b.setRoomNo(roomNo);
 
         bookingRepository.save(b);

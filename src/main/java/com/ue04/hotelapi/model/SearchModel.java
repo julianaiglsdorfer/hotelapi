@@ -1,8 +1,8 @@
 package com.ue04.hotelapi.model;
 
 public class SearchModel {
-    private String from;
-    private String to;
+    private String checkindate;
+    private String ceckoutdate;
     private int size;
     private int price;
     private int persons;
@@ -10,12 +10,12 @@ public class SearchModel {
     private int doubleBed;
     private boolean balcony;
 
-    public String getFrom() {
-        return from;
+    public String getCheckInDate() {
+        return checkindate;
     }
 
-    public String getTo() {
-        return to;
+    public String getCheckOutDate() {
+        return ceckoutdate;
     }
 
     public int getSize() {
