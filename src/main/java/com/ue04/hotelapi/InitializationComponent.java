@@ -21,40 +21,41 @@ public class InitializationComponent {
 
         roomRepository.deleteAll();
 
-        Room roomOne = new Room();
-        roomOne.setNr("100");
-        roomOne.setType("Kingsize");
-        roomOne.setPrice(10);
-        roomOne.setCapacity(10);
-        roomOne.setSize(10);
-        roomOne.setNoofsinglebeds(10);
-        roomOne.setNoofdoublebeds(10);
-        roomOne.setBalcony(true);
+        roomRepository.save(createRoom("101", "Kingsize Zimmer", 150, 3, 120,3, 1, true));
+        roomRepository.save(createRoom("102", "Deluxe Zimmer", 100, 3, 100,3, 1, true));
+        roomRepository.save(createRoom("103", "Standard Zimmer", 60, 2, 25,2, 0, false));
+        roomRepository.save(createRoom("201", "Standard Zimmer", 50, 2, 20,2, 0, true));
+        roomRepository.save(createRoom("202", "Familien Zimmer", 110, 4, 115,2, 1, false));
+        roomRepository.save(createRoom("203", "Familien Zimmer", 110, 4, 110,2, 1, true));
+        roomRepository.save(createRoom("301", "Deluxe Zimmer", 190, 3, 100,3, 1, true));
 
-        Room roomTwo = new Room();
-        roomTwo.setNr("101");
-        roomTwo.setType("Kingsize");
-        roomTwo.setPrice(100);
-        roomTwo.setCapacity(100);
-        roomTwo.setSize(100);
-        roomTwo.setNoofsinglebeds(100);
-        roomTwo.setNoofdoublebeds(100);
-        roomTwo.setBalcony(false);
+        bookingRepository.save(createBooking("101", "2021-07-01", "2021-07-07"));
+        bookingRepository.save(createBooking("101", "2021-06-20", "2021-06-28"));
+        bookingRepository.save(createBooking("102", "2021-07-01", "2021-07-07"));
+        bookingRepository.save(createBooking("202", "2021-07-10", "2021-07-15"));
+    }
 
-        roomRepository.save(roomOne);
-        roomRepository.save(roomTwo);
+    private Room createRoom(String nr, String type, int price, int capacity, int size, int noofsinglebeds, int noofdoublebeds, boolean balcony) {
+        Room newRoom = new Room();
+        newRoom.setNr(nr);
+        newRoom.setType(type);
+        newRoom.setPrice(price);
+        newRoom.setCapacity(capacity);
+        newRoom.setSize(size);
+        newRoom.setNoofsinglebeds(noofsinglebeds);
+        newRoom.setNoofdoublebeds(noofdoublebeds);
+        newRoom.setBalcony(balcony);
 
-        Booking bookingOne = new Booking();
-        bookingOne.setRoomNo("100");
-        bookingOne.setCheckindate("2020-01-01");
-        bookingOne.setCheckoutdate("2020-01-05");
+        return newRoom;
+    }
 
-        Booking bookingTwo = new Booking();
-        bookingTwo.setRoomNo("101");
-        bookingTwo.setCheckindate("2020-01-01");
-        bookingTwo.setCheckoutdate("2020-01-05");
+    private Booking createBooking(String roomno, String checkindate, String checkoutdate) {
+        Booking newBooking = new Booking();
+        newBooking.setRoomno(roomno);
+        newBooking.setCheckindate(checkindate);
+        newBooking.setCheckoutdate(checkoutdate);
+        newBooking.setBookingActive(true);
 
-        bookingRepository.save(bookingOne);
-        bookingRepository.save(bookingTwo);
+        return newBooking;
     }
 }

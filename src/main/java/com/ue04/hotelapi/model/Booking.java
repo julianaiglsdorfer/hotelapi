@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Booking {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private long bookingNo;
+    private long bookingno;
 
     @Column
     private String checkindate;
@@ -16,13 +16,13 @@ public class Booking {
     private String checkoutdate;
 
     @Column
-    private String roomNo;
+    private String roomno;
 
     @Column
     private boolean bookingActive;
 
-    public long getBookingNo() {
-        return bookingNo;
+    public long getBookingno() {
+        return bookingno;
     }
 
     public String getCheckindate() {
@@ -41,12 +41,12 @@ public class Booking {
         this.checkoutdate = checkOutDate;
     }
 
-    public String getRoomNo() {
-        return roomNo;
+    public String getRoomno() {
+        return roomno;
     }
 
-    public void setRoomNo(String roomNo) {
-        this.roomNo = roomNo;
+    public void setRoomno(String roomno) {
+        this.roomno = roomno;
     }
 
     public boolean isBookingActive() {

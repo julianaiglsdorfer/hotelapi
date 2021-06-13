@@ -16,4 +16,6 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
             @Param("fromDate") String from,
             @Param("toDate") String to
     );
+
+    Long deleteByBookingno(Long bookingno);
 }

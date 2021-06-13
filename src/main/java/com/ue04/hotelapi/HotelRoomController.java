@@ -4,10 +4,14 @@ import com.ue04.hotelapi.model.Booking;
 import com.ue04.hotelapi.model.Room;
 import com.ue04.hotelapi.model.SearchModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
 
+@Transactional
 @RestController
 @RequestMapping("/api")
 public class HotelRoomController {
@@ -18,7 +22,6 @@ public class HotelRoomController {
     @Autowired
     private BookingRepository bookingRepository;
 
-    //POST weil = keine Daten in der URL + wir können einen body im Request mitgeben
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/freeRooms")
     public Collection<Room> getFreeRooms(@RequestBody SearchModel searchModel) {
@@ -28,21 +31,11 @@ public class HotelRoomController {
                 searchModel.getPersons(),
                 searchModel.getSingleBed(),
                 searchModel.getDoubleBed(),
-                searchModel.isBalcony()
+                searchModel.isBalcony(),
+                searchModel.getCheckInDate(),
+                searchModel.getCheckOutDate()
         );
-
-//        Collection<Booking> bookings = bookingRepository.findAll();
-//        int year = Integer.parseInt(searchModel.getFrom().split(3));
-//        int month = Integer.parseInt(searchModel.getFrom());
-//        bookings = bookings.stream().filter(b -> searchModel.getFrom() < b.getCheckindate() )
         return rooms;
-
-//        return rooms.stream().filter(r -> isNotBooked(r.getNr(), bookings)).collect(Collectors.toList());
-
-    }
-
-    private boolean isNotBooked(String nr, Collection<Booking> bookings) {
-        return !bookings.stream().anyMatch(b -> b.getRoomNo() == nr);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -81,16 +74,16 @@ public class HotelRoomController {
         return r;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/addBooking")
-    public Booking addBooking(@RequestParam String checkindate,
-                              @RequestParam String checkoutdate,
-                              @RequestParam String roomNo) {
-        Booking b = new Booking();
-        b.setCheckindate(checkindate);
-        b.setCheckoutdate(checkoutdate);
-        b.setRoomNo(roomNo);
+    public ResponseEntity<Booking> addBooking(@RequestBody Booking booking) {
+        Booking newBooking = bookingRepository.save(booking);
+        return new ResponseEntity<>(newBooking, HttpStatus.OK);
+    }
 
-        bookingRepository.save(b);
-        return b;
+    @CrossOrigin(origins = "http://localhost:4200")
+    @DeleteMapping("/deleteBooking/{bookingno}")
+    public void deleteBooking(@PathVariable Long bookingno) {
+        bookingRepository.deleteByBookingno(bookingno);
     }
 }

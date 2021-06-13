@@ -9,34 +9,29 @@ import java.util.Collection;
 
 public interface RoomRepository extends JpaRepository<Room, Integer> {
 
-    //Select * erlaubt Abfrage aller Daten dabei müssen in der unteren Section nicht alle erwähnt werden
-    //für Abfrage eines oder einer spezifischen Anzahl muss genau die Anzahl unten angegeben sein
     @Query(value = "select * FROM Room r " +
             "WHERE r.size >= :size " +
             "AND r.capacity >= :persons " +
             "AND r.price <= :price " +
             "AND r.noofsinglebeds >= :singleBed " +
             "AND r.noofdoublebeds >= :doubleBed " +
-            "AND r.balcony = :balcony", nativeQuery = true)
+            "AND r.balcony = :balcony " +
+            "AND r.nr NOT IN (" +
+                "SELECT b.roomno FROM Booking b " +
+                "WHERE b.roomno = r.nr " +
+                "AND (" +
+                    "(b.checkindate <= :from AND b.checkoutdate >= :from)" +
+                    "OR (b.checkindate <= :to AND b.checkoutdate >= :to)" +
+                ")" +
+            ")", nativeQuery = true)
     Collection<Room> findFreeRooms(
             @Param("size")int size,
             @Param("price") int price,
             @Param("persons") int persons,
             @Param("singleBed") int singleBed,
             @Param("doubleBed") int doubleBed,
-            @Param("balcony") boolean balcony
+            @Param("balcony") boolean balcony,
+            @Param("from") String from,
+            @Param("to") String to
     );
-
-
-//    return "SELECT r.RoomNo as 'rRoomNo', r.Type as 'rType', r.Price as 'rPrice', r.Capacity as 'rCapacity',
-//    r.Size as 'rSize', r.NoOfSingleBeds as 'rNoOfSingleBeds', r.NoOfDoubleBeds as 'rNoOfDoubleBeds',
-//    r.Balcony as 'rBalcony'
-//    FROM Room r
-//    WHERE r.RoomNo NOT IN
-//            (SELECT b.RoomNo
-//                    FROM Booked b
-//                    WHERE b.RoomNo = r.RoomNo"
-//                    . $string .
-//                    "ORDER BY r.Capacity";
-
 }
