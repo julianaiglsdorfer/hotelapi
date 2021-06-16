@@ -22,6 +22,11 @@ public class HotelRoomController {
     @Autowired
     private BookingRepository bookingRepository;
 
+    @GetMapping("/")
+    public String home() {
+        return "Hello from Azure App Service (in the staging slot)!";
+    }
+
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/freeRooms")
     public Collection<Room> getFreeRooms(@RequestBody SearchModel searchModel) {
