@@ -24,7 +24,7 @@ public class HotelRoomController {
 
     @GetMapping("/")
     public String home() {
-        return "Hello from Azure App Service (in the staging slot)!";
+        return "Service Engineering HotelAPI runs on AzureAppService";
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
