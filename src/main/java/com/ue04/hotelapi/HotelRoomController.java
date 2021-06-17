@@ -27,7 +27,7 @@ public class HotelRoomController {
         return "Service Engineering HotelAPI runs on AzureAppService";
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://service-engineering-hotel-service.azurewebsites.net/")
     @PostMapping("/freeRooms")
     public Collection<Room> getFreeRooms(@RequestBody SearchModel searchModel) {
         Collection<Room> rooms = roomRepository.findFreeRooms(
@@ -43,7 +43,7 @@ public class HotelRoomController {
         return rooms;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://service-engineering-hotel-service.azurewebsites.net/")
     @GetMapping("/allRooms")
     public Iterable<Room> getAllRooms() {
         return roomRepository.findAll();
@@ -55,7 +55,7 @@ public class HotelRoomController {
     	return bookingRepository.findAll();
     }
     
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://service-engineering-hotel-service.azurewebsites.net/")
     @PostMapping("/addRoom")
     public Room addRoom(@RequestParam String roomNo,
                         @RequestParam String type,
@@ -79,7 +79,7 @@ public class HotelRoomController {
         return r;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://service-engineering-hotel-service.azurewebsites.net/")
     @PostMapping("/addBooking")
     public ResponseEntity<Booking> addBooking(@RequestBody Booking booking) {
         Booking newBooking = bookingRepository.save(booking);
