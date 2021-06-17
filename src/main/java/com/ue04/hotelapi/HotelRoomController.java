@@ -27,7 +27,7 @@ public class HotelRoomController {
         return "Service Engineering HotelAPI runs on AzureAppService";
     }
 
-    @CrossOrigin(origins = "https://service-engineering-hotel-service.azurewebsites.net/")
+    @CrossOrigin(origins = "https://service-engineering-hotel-service.azurewebsites.net")
     @PostMapping("/freeRooms")
     public Collection<Room> getFreeRooms(@RequestBody SearchModel searchModel) {
         Collection<Room> rooms = roomRepository.findFreeRooms(
@@ -43,19 +43,19 @@ public class HotelRoomController {
         return rooms;
     }
 
-    @CrossOrigin(origins = "https://service-engineering-hotel-service.azurewebsites.net/")
+    @CrossOrigin(origins = "https://service-engineering-hotel-service.azurewebsites.net")
     @GetMapping("/allRooms")
     public Iterable<Room> getAllRooms() {
         return roomRepository.findAll();
     }
 
-    @CrossOrigin(origins = "https://service-engineering-hotel-service.azurewebsites.net/")
+    @CrossOrigin(origins = "https://service-engineering-hotel-service.azurewebsites.net")
     @GetMapping("/allBookings")
     public Iterable<Booking> getAllBookings(){
     	return bookingRepository.findAll();
     }
     
-    @CrossOrigin(origins = "https://service-engineering-hotel-service.azurewebsites.net/")
+    @CrossOrigin(origins = "https://service-engineering-hotel-service.azurewebsites.net")
     @PostMapping("/addRoom")
     public Room addRoom(@RequestParam String roomNo,
                         @RequestParam String type,
@@ -79,14 +79,14 @@ public class HotelRoomController {
         return r;
     }
 
-    @CrossOrigin(origins = "https://service-engineering-hotel-service.azurewebsites.net/")
+    @CrossOrigin(origins = "https://service-engineering-hotel-service.azurewebsites.net")
     @PostMapping("/addBooking")
     public ResponseEntity<Booking> addBooking(@RequestBody Booking booking) {
         Booking newBooking = bookingRepository.save(booking);
         return new ResponseEntity<>(newBooking, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://service-engineering-hotel-service.azurewebsites.net")
     @DeleteMapping("/deleteBooking/{bookingno}")
     public void deleteBooking(@PathVariable Long bookingno) {
         bookingRepository.deleteByBookingno(bookingno);
