@@ -49,7 +49,7 @@ public class HotelRoomController {
         return roomRepository.findAll();
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://service-engineering-hotel-service.azurewebsites.net/")
     @GetMapping("/allBookings")
     public Iterable<Booking> getAllBookings(){
     	return bookingRepository.findAll();
